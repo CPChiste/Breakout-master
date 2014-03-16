@@ -1,0 +1,20 @@
+check things off if you get it done
+
+***BALL***
+	bounce off right top left walls
+	disapear off bottom wall
+	bounce off paddle
+	bounce off bricks
+
+	boosters:
+		get bigger/faster
+		multi ball
+
+***PADDLE***
+	create user input class
+	move only left right from user input
+	should not move off screen
+
+***BRICKS***
+	create level generator with random number of bricks
+
