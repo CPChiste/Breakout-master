@@ -2,7 +2,7 @@
 #define __BRICKGENERATOR_H
 
 #include "Brick.h"
-#include "ShapeSimulator.h"
+#include "BreakoutSimulator.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -20,10 +20,10 @@ class BrickGenerator
   BrickGenerator(int _width, int _height) : width(_width), height(_height) {};
    ///Generate bricks randomly on the top 50% of the play field
    /**
-      \param sim reference to ShapeSimulator object to add bricks to for animation and drawing
-      \return reference to ShapeSimulator object containing the randomly generated bricks
+      \param sim reference to BreakoutSimulator object to add bricks to for animation and drawing
+      \return reference to BreakoutSimulator object containing the randomly generated bricks
    */
-   ShapeSimulator& generateBricks(ShapeSimulator& sim);
+   BreakoutSimulator& generateBricks(BreakoutSimulator& sim);
 };
 
 #endif

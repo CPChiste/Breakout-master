@@ -1,6 +1,6 @@
 #include "BrickGenerator.h"
 
-ShapeSimulator& BrickGenerator::generateBricks(ShapeSimulator& sim)
+BreakoutSimulator& BrickGenerator::generateBricks(BreakoutSimulator& sim)
 {
    double halfWindow = (height / 2);
    double column = width/10.0; //10 columns

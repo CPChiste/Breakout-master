@@ -7,7 +7,7 @@ Ball::Ball(Point o, Vector s, double _r) :
 
 
 void Ball::draw() {
-	al_draw_circle(origin.X(), origin.Y(), r, al_map_rgb(0, 200, 200), 3);
+	al_draw_circle(origin.X(), origin.Y(), r, al_map_rgb(0, 200, 200), 2);
 }
 
 
