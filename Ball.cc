@@ -1,45 +1,98 @@
 #include "Ball.h"
 #include <allegro5/allegro_primitives.h>
+#include <math.h>
+#include <iostream>
 
 Ball::Ball(Point o, Vector s, double r) : Shape(o), speed(s), radius(r) {};
 
 void Ball::checkWallCollisions(int minX, int minY, int maxX, int maxY) {
-	if (origin.X() < minX - bBoxMinX()) { // colision left side
-    	speed = speed.reflectOverYAxis();
-    	origin = origin.reflectVerticalLine(minX - bBoxMinX());
+	if (bBoxMinX() <= minX) { // colision left side
+    	leftCollision(minX);
  	}
 
-  if (origin.X() > maxX - bBoxMaxX()) { // collision right side
-    speed = speed.reflectOverYAxis();
-    origin = origin.reflectVerticalLine(maxX - bBoxMaxX());
+  if (bBoxMaxX() >= maxX) { // collision right side
+    rightCollision(maxX);
   }
 
   //TODO:: Remove bottom collisions when running in actual game
 
-  if (origin.Y() > maxY - bBoxMaxY()) { // collision bottom side
-    speed = speed.reflectOverXAxis();
-    origin = origin.reflectHorizontalLine(maxY - bBoxMaxY());
+  if (bBoxMaxY() >= maxY) { // collision bottom side
+    bottomCollision(maxY);
   }
 
-  if (origin.Y() < minY - bBoxMinY()) { // collision top side
-    speed = speed.reflectOverXAxis();
-    origin = origin.reflectHorizontalLine(minY - bBoxMinY());
+  if (bBoxMinY() < minY) { // collision top side
+    topCollision(minY);
   }
 }
 
 bool Ball::checkShapeCollision(int minX, int minY, int maxX, int maxY, bool sBounce) {
   //if sbounce then change vector speed based on where it hit the object
-  //return true if it collided
-  return false;
+
+  // An Intersect Depth Vector Algorithm
+  //calculate center
+  double halfWidth = (minX + maxX) / 2;
+  double halfHeight = (minY + maxY) / 2;
+  Point shapeCenter = Point(minX + halfWidth, minY + halfHeight);
+  Point circleCenter = Point(origin.X(), origin.Y());
+
+  //calculate current and minimum--non-instersecting distance between centers
+  double distanceX = shapeCenter.X() - circleCenter.X();
+  double distanceY = shapeCenter.Y() - circleCenter.Y();
+  double minDistanceX = halfWidth + radius;
+  double minDistanceY = halfHeight + radius;
+
+  //check if there is an intersection
+  if (fabs(distanceX) >= minDistanceX || fabs(distanceY) >= minDistanceY) {
+    return false;
+  }
+  
+  //calculate intersection depths
+  double depthX = distanceX > 0 ? minDistanceX - distanceY : -minDistanceX - distanceX;
+  double depthY = distanceY > 0 ? minDistanceY - distanceY : -minDistanceY - distanceY;
+
+  if (fabs(depthX) > fabs(depthY)) { //y axis
+    if (depthY < 0) {
+      topCollision(minY);
+    }
+    else{
+      bottomCollision(maxY);    
+    }
+  }
+  else { // x axis
+    if (depthX < 0) {
+      leftCollision(minX);
+    }
+    else { 
+      rightCollision(maxX);
+    }
+  }
+
+  return true;
 }
 
 bool Ball::checkBottomWallCollision(int maxY) {
-	if (origin.Y() > maxY - bBoxMaxY()) {
-    return true;
-  }
-  else { 
-    return false;
-  }
+  if (bBoxMaxY() > maxY) return true;
+  return false;
+}
+
+void Ball::leftCollision(int minX) {
+  speed = speed.reflectOverYAxis();
+  origin = origin.reflectVerticalLine(minX + radius);
+}
+
+void Ball::rightCollision(int maxX) {
+  speed = speed.reflectOverYAxis();
+  origin = origin.reflectVerticalLine(maxX - radius);
+}
+
+void Ball::bottomCollision(int maxY) {
+  speed = speed.reflectOverXAxis();
+  origin = origin.reflectHorizontalLine(maxY - radius);
+}
+
+void Ball::topCollision(int minY) {
+  speed = speed.reflectOverXAxis();
+  origin = origin.reflectHorizontalLine(minY + radius);
 }
 
 void Ball::updatePosition(double dt) {
@@ -51,17 +104,17 @@ void Ball::draw() {
 }
 
 double Ball::bBoxMaxX() {
-	return radius;
+	return origin.X() + radius;
 }
 
 double Ball::bBoxMaxY() {
-	return radius;
+	return origin.Y() + radius;
 }
 
 double Ball::bBoxMinX() {
-	return -radius;
+	return origin.X() - radius;
 }
 
 double Ball::bBoxMinY() {
-	return -radius;
+	return origin.Y() - radius;
 }

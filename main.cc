@@ -11,8 +11,8 @@ int main(void) {
 
 	sim = brickGen.generateBricks(sim);
 	
-	sim.addBall(new Ball(Point(100, 100), Vector(200, 200), 10));
-	sim.addPaddle(new Paddle(Point(400, 400), Vector(20, 0), 100, 10));
+	sim.addBall(new Ball(Point(400, 400), Vector(200, 200), 10));
+	//sim.addPaddle(new Paddle(Point(400, 400), Vector(20, 0), 100, 10));
 	
 	sim.run();
 }

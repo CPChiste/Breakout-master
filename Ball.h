@@ -29,6 +29,12 @@ public:
 	double bBoxMaxY();
 	double bBoxMinX();
 	double bBoxMinY();
+
+private:
+	void leftCollision(int minX);
+	void rightCollision(int maxX);
+	void bottomCollision(int minY);
+	void topCollision(int maxY);
 };
 
 #endif
