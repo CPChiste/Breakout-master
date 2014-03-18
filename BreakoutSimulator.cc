@@ -23,6 +23,8 @@ void BreakoutSimulator::updateModel(double dt){
 
     //bricks
     for (std::list<Brick*>::iterator bit=brickList.begin(); bit!=brickList.end(); ++bit) {
+      
+
       if ((*it)->checkShapeCollision((*bit)->bBoxMinX(), (*bit)->bBoxMinY(), 
                         (*bit)->bBoxMaxX(), (*bit)->bBoxMaxY(), false) == true) {
         // do something with the bricks

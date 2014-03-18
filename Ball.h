@@ -33,8 +33,10 @@ public:
 private:
 	void leftCollision(int minX);
 	void rightCollision(int maxX);
-	void bottomCollision(int minY);
-	void topCollision(int maxY);
+	void bottomCollision(int maxY);
+	void topCollision(int minY);
+
+	bool lineIntersects(double x1, double y1, double x2, double y2);
 };
 
 #endif

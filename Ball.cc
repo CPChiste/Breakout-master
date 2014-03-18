@@ -1,7 +1,7 @@
 #include "Ball.h"
 #include <allegro5/allegro_primitives.h>
 #include <math.h>
-#include <iostream>
+#include "2DGeom.h"
 
 Ball::Ball(Point o, Vector s, double r) : Shape(o), speed(s), radius(r) {};
 
@@ -28,46 +28,56 @@ void Ball::checkWallCollisions(int minX, int minY, int maxX, int maxY) {
 bool Ball::checkShapeCollision(int minX, int minY, int maxX, int maxY, bool sBounce) {
   //if sbounce then change vector speed based on where it hit the object
 
-  // An Intersect Depth Vector Algorithm
-  //calculate center
-  double halfWidth = (minX + maxX) / 2;
-  double halfHeight = (minY + maxY) / 2;
-  Point shapeCenter = Point(minX + halfWidth, minY + halfHeight);
-  Point circleCenter = Point(origin.X(), origin.Y());
+  Point topLeft = Point(minX, minY);
+  Point topRight = Point(maxX, minY);
+  Point botLeft = Point(minX, maxY);
+  Point botRight = Point(maxX, maxY);
 
-  //calculate current and minimum--non-instersecting distance between centers
-  double distanceX = shapeCenter.X() - circleCenter.X();
-  double distanceY = shapeCenter.Y() - circleCenter.Y();
-  double minDistanceX = halfWidth + radius;
-  double minDistanceY = halfHeight + radius;
+  if (lineIntersects(topLeft.X(), topLeft.Y(), botLeft.X(), botLeft.Y())) { 
+    rightCollision(maxX);
+    return true;
+  }
 
-  //check if there is not an intersection
-  if (fabs(distanceX) >= minDistanceX || fabs(distanceY) >= minDistanceY) {
+  if (lineIntersects(topLeft.X(), topLeft.Y(), topRight.X(), topRight.Y())) {
+    bottomCollision(maxY);
+    return true;
+  }
+
+  if (lineIntersects(topRight.X(), topRight.Y(), botRight.X(), botRight.Y())) {
+    leftCollision(minX);
+    return true;
+  }
+
+  if (lineIntersects(botLeft.X(), botLeft.Y(), botRight.X(), botRight.Y())) {
+    topCollision(minY);
+    return true;
+  } 
+
+  return false;
+}
+
+bool Ball::lineIntersects(double x1, double y1, double x2, double y2) {
+  if ((x1 <= bBoxMinX() && x2 <= bBoxMinX()) || (y1 <= bBoxMinY() && y2 <= bBoxMinY()) || 
+      (x1 >= bBoxMaxX() && x2 >= bBoxMaxX()) || (y1 >= bBoxMaxY() && y2 >= bBoxMaxY())) {
     return false;
   }
+  
+  double m = (y2 - y1) / (x2 - x1);
+  
+  double y = m * (bBoxMinX() - x1) + y1;
+  if (y > bBoxMinY() && y < bBoxMaxY()) return true;
 
-  //calculate intersection depths
-  double depthX = distanceX > 0 ? minDistanceX - distanceX : -minDistanceX - distanceX;
-  double depthY = distanceY > 0 ? minDistanceY - distanceY : -minDistanceY - distanceY;
+  y = m * (bBoxMaxX() - x1) + y1;
+  if (y > bBoxMinY() && y < bBoxMaxY()) return true;
+  
+  double x = (bBoxMinY() - y1) / m + x1;
+  if (x > bBoxMinX() && x < bBoxMaxX()) return true;
 
-  if (fabs(depthX) > fabs(depthY)) { //y axis
-    if (depthY < 0) {
-      topCollision(minY);
-    }
-    else{
-      bottomCollision(maxY);    
-    }
-  }
-  else { // x axis
-    if (depthX < 0) {
-      leftCollision(minX);
-    }
-    else { 
-      rightCollision(maxX);
-    }
-  }
+  x = (bBoxMaxY() - y1) / m + x1;
+  if (x > bBoxMinX() && x < bBoxMaxX()) return true;
 
-  return true;
+  return false;
+
 }
 
 bool Ball::checkBottomWallCollision(int maxY) {
