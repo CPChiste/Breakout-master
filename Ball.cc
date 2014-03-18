@@ -41,13 +41,13 @@ bool Ball::checkShapeCollision(int minX, int minY, int maxX, int maxY, bool sBou
   double minDistanceX = halfWidth + radius;
   double minDistanceY = halfHeight + radius;
 
-  //check if there is an intersection
+  //check if there is not an intersection
   if (fabs(distanceX) >= minDistanceX || fabs(distanceY) >= minDistanceY) {
     return false;
   }
-  
+
   //calculate intersection depths
-  double depthX = distanceX > 0 ? minDistanceX - distanceY : -minDistanceX - distanceX;
+  double depthX = distanceX > 0 ? minDistanceX - distanceX : -minDistanceX - distanceX;
   double depthY = distanceY > 0 ? minDistanceY - distanceY : -minDistanceY - distanceY;
 
   if (fabs(depthX) > fabs(depthY)) { //y axis

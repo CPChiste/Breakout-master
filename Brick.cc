@@ -12,7 +12,7 @@ double Brick::bBoxMaxX() {
 }
 
 double Brick::bBoxMaxY() {
-   return origin.X() + height;
+   return origin.Y() + height;
 }
 
 double Brick::bBoxMinX() {
