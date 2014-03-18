@@ -34,22 +34,28 @@ bool Ball::checkShapeCollision(int minX, int minY, int maxX, int maxY, bool sBou
   Point botRight = Point(maxX, maxY);
 
   if (lineIntersects(topLeft.X(), topLeft.Y(), botLeft.X(), botLeft.Y())) { 
-    rightCollision(maxX);
+    //rightCollision(maxX);
+    speed = speed.reflectOverYAxis();
     return true;
   }
 
   if (lineIntersects(topLeft.X(), topLeft.Y(), topRight.X(), topRight.Y())) {
-    bottomCollision(maxY);
+    //bottomCollision(maxY);
+    speed = speed.reflectOverXAxis();
     return true;
   }
 
   if (lineIntersects(topRight.X(), topRight.Y(), botRight.X(), botRight.Y())) {
-    leftCollision(minX);
+    //leftCollision(minX);
+    speed = speed.reflectOverYAxis();
+    //origin = Point(minX, origin.Y() + radius );
     return true;
   }
 
   if (lineIntersects(botLeft.X(), botLeft.Y(), botRight.X(), botRight.Y())) {
-    topCollision(minY);
+    //topCollision(minY);
+    speed = speed.reflectOverXAxis();
+    //origin = Point(origin.X(), minY + radius);
     return true;
   } 
 
@@ -77,7 +83,6 @@ bool Ball::lineIntersects(double x1, double y1, double x2, double y2) {
   if (x > bBoxMinX() && x < bBoxMaxX()) return true;
 
   return false;
-
 }
 
 bool Ball::checkBottomWallCollision(int maxY) {
