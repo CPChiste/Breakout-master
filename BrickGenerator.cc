@@ -22,7 +22,7 @@ BreakoutSimulator& BrickGenerator::generateBricks(BreakoutSimulator& sim)
       for(int j=0;j<10;j++)
       {
 	 if(randomGrid[i][j]==1)
-	    sim.addShape(new Brick(Point(i*column, j*row), column, row));
+	    sim.addBrick(new Brick(Point(i*column, j*row), column, row));
       }
    }
 

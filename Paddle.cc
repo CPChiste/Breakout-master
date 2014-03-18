@@ -2,7 +2,7 @@
 #include <allegro5/allegro_primitives.h>
 
 Paddle::Paddle(Point o, Vector s, double l, double h) :
-	Shape(o, s), length(l), height(h) {
+	Shape(o), speed(s), length(l), height(h) {
 }
 
 void Paddle::draw() {

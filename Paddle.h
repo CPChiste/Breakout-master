@@ -5,6 +5,7 @@
 
 class Paddle: public Shape {
 private:
+	Vector speed;
 	double length;
 	double height;
 

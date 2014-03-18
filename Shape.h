@@ -1,17 +1,15 @@
-#ifndef __SHAPE_H
-#define __SHAPE_H
+#ifndef __2DOBJECT_H
+#define __2DOBJECT_H
 
 #include "2DGeom.h"
 
 /// generic Shape class.
 /**
- It is aware of its bounding box, it contains a speed vector, and is
- responsible with collision with the window sides
+ It is aware of its bounding box
  */
 class Shape {
  protected:
   Point origin; // the origin of the shape
-  Vector speed; // speed in pixels per sec
 
   /** private default constructor forces the explicit constructor to
       be used
@@ -27,25 +25,10 @@ class Shape {
      drawing is simple. 
      \param s the speed vector in pixels per second
    */
-  Shape(Point o, Vector s);
+  Shape(Point o);
 
 	/// destructor must be virtual
 	virtual ~Shape() {}
-
-  /// called to update the position of the shape; responsible for
-  /// collisions
-  /**
-     \param dt the time in seconds since the most recent update
-     \param minx the minimum x coordinate of the window inside which
-     the shape bounces, in pixels
-     \param miny the minimum y coordinate of the window inside which
-     the shape bounces, in pixels
-     \param maxx the maximum x coordinate of the window inside which
-     the shape bounces, in pixels
-     \param maxy the maximum y coordinate of the window inside which
-     the shape bounces, in pixels
-   */
-  void updatePosition(double dt, int minx, int miny, int maxx, int maxy);
 
   /// the drawing function, to be defined by child classes
   virtual void draw() = 0;

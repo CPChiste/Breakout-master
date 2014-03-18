@@ -12,7 +12,6 @@
 class Brick: public Shape
 {
   private:
-   Point origin; // position for the beginning of the brick drawing
    double length; // the length of the box
    double height; // the height of the box
 
@@ -23,7 +22,8 @@ public:
 		 \param s the speed vector, in pixels per second
 		 \param _size a vector describing the length of all of the sides of the square
 	 */
-  Brick(Point o, double _length, double _height) : origin(o), length(_length), height(_height) {};
+	Brick(Point o, double l, double h);
+	
 	void draw();
 
 	double bBoxMaxX();
