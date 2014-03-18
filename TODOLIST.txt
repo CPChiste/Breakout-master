@@ -11,9 +11,22 @@ check things off if you get it done
 		multi ball
 
 ***PADDLE***
-	create user input class
-	move only left right from user input
-	should not move off screen
+	create user input class ==DONE==
+	move only left right from user input ==DONE==
+	should not move off screen ==DONE==
+	
+	paddle based powerups/powerdowns
+		grabbing them with the paddle
+		size change
+		sticky? balls stick to paddle, press another key to release
+		speed changes?
+		any others anybody wants to list here
+	
+	split paddle and keyboard into two classes
+		rebindable keys? joystick support?
+		multiplayer with multiple paddles?
+		probably unnecessary unless we want to do any of these
+	
 
 ***BRICKS***
 	create level generator with random number of bricks ==DONE== CC

@@ -35,6 +35,24 @@ class Vector {
     return Vector(x, -y);
   }
   
+  /// vector addition
+  /**
+     \param vector to add with
+     \return a vector equal to the addition of the two vectors
+   */
+  Vector operator+(Vector v) const {
+    return Vector(x+v.X(), y+v.Y());
+  }
+  
+  /// vector subtraction
+  /**
+     \param vector to subtract with
+     \return a vector equal to first vector minus the second vector
+   */
+  Vector operator-(Vector v) const {
+    return Vector(x-v.X(), y-v.Y());
+  }
+  
   /// *this is reflected over the Y axis
   /**
      \return the reflection of *this over the y axis, ie a vector with

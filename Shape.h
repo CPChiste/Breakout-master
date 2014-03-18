@@ -45,7 +45,7 @@ class Shape {
      \param maxy the maximum y coordinate of the window inside which
      the shape bounces, in pixels
    */
-  void updatePosition(double dt, int minx, int miny, int maxx, int maxy);
+  virtual void updatePosition(double dt, int minx, int miny, int maxx, int maxy);
 
   /// the drawing function, to be defined by child classes
   virtual void draw() = 0;
