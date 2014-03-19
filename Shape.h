@@ -27,6 +27,15 @@ class Shape {
    */
   Shape(Point o);
 
+   /// Checks if a line intersects with the sape class
+  /**
+     \param x1 first points x position
+     \param y1 first points y position
+     \param x2 second points x position
+     \param y2 second points y position
+   */
+  bool lineIntersects(double x1, double y1, double x2, double y2);
+
 	/// destructor must be virtual
 	virtual ~Shape() {}
 

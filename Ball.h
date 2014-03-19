@@ -19,9 +19,9 @@ public:
 
   	void updatePosition(double dt);
 
-	void checkWallCollisions(int minX, int minY, int maxX, int maxY);
-	bool checkShapeCollision(int minX, int minY, int maxX, int maxY, bool sBounce);
-	bool checkBottomWallCollision(int maxY);
+	void checkWallCollisions(double minX, double minY, double maxX, double maxY);
+	bool checkShapeCollision(double minX, double minY, double maxX, double maxY, bool sBounce);
+	bool checkBottomWallCollision(double maxY);
 
 	void draw();
 
@@ -29,14 +29,6 @@ public:
 	double bBoxMaxY();
 	double bBoxMinX();
 	double bBoxMinY();
-
-private:
-	void leftCollision(int minX);
-	void rightCollision(int maxX);
-	void bottomCollision(int maxY);
-	void topCollision(int minY);
-
-	bool lineIntersects(double x1, double y1, double x2, double y2);
 };
 
 #endif
