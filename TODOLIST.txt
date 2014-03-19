@@ -1,10 +1,10 @@
 check things off if you get it done
 
 ***BALL***
-	bounce off right top left walls
-	disapear off bottom wall
-	bounce off paddle
-	bounce off bricks
+	bounce off right top left walls  ==DONE==
+	disapear off bottom walls   NOT DONE UNTIL LATER
+	bounce off paddles          
+	bounce off bricks            ==DONE==
 
 	boosters:
 		get bigger/faster
@@ -23,10 +23,11 @@ check things off if you get it done
 		any others anybody wants to list here
 	
 	split paddle and keyboard into two classes
-		rebindable keys? joystick support?
+		rebindable keys? joystick support? 
 		multiplayer with multiple paddles?
 		probably unnecessary unless we want to do any of these
-	
+		
+		haha yea these are too much for now, maybe when were done school
 
 ***BRICKS***
 	create level generator with random number of bricks ==DONE== CC

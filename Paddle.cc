@@ -19,7 +19,7 @@ Paddle::~Paddle()
    al_uninstall_keyboard();
 }
 
-void Paddle::updatePosition(double dt, int minx, int miny, int maxx, int maxy)
+void Paddle::updatePosition(double dt, int minX, int minY, int maxX, int maxY)
 {
    al_get_keyboard_state(keystate);
    speed = Vector(0,0);
@@ -34,12 +34,12 @@ void Paddle::updatePosition(double dt, int minx, int miny, int maxx, int maxy)
    
    origin = origin + speed*dt;
    
-   if (origin.X() < minx) { // colision left side
-      origin = Point(minx + 1,origin.Y());
+   if (bBoxMinX() < minX) { // colision left side
+      origin = Point(minX, origin.Y());
    }
    
-   if (origin.X() > maxx - bBoxMaxX()) { // collision right side
-      origin = Point(maxx - bBoxMaxX(),origin.Y());
+   if (bBoxMaxX() > maxX) { // collision right side
+      origin = Point(maxX - width, origin.Y());
    } 
 }
 
@@ -48,11 +48,11 @@ void Paddle::draw() {
 }
 
 double Paddle::bBoxMaxX() {
-   return width;
+   return origin.X() + width;
 }
 
 double Paddle::bBoxMaxY() {
-   return height;
+   return origin.Y() + height;
 }
 
 double Paddle::bBoxMinX() {

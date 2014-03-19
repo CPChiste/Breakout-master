@@ -1,27 +1,26 @@
 #include "Shape.h"
 
-Shape::Shape(Point o, Vector s) : origin(o), speed(s) {};
+Shape::Shape(Point o) : origin(o) {};
 
-void Shape::updatePosition(double dt, int minx, int miny, int maxx, int maxy) {
-  origin = origin + speed*dt;
-
-  if (origin.X() < minx - bBoxMinX()) { // colision left side
-    speed = speed.reflectOverYAxis();
-    origin = origin.reflectVerticalLine(minx - bBoxMinX());
+bool Shape::lineIntersects(double x1, double y1, double x2, double y2) {
+  if ((x1 <= bBoxMinX() && x2 <= bBoxMinX()) || (y1 <= bBoxMinY() && y2 <= bBoxMinY()) || 
+      (x1 >= bBoxMaxX() && x2 >= bBoxMaxX()) || (y1 >= bBoxMaxY() && y2 >= bBoxMaxY())) {
+    return false;
   }
+  
+  double m = (y2 - y1) / (x2 - x1);
+  
+  double y = m * (bBoxMinX() - x1) + y1;
+  if (y > bBoxMinY() && y < bBoxMaxY()) return true;
 
-  if (origin.X() > maxx - bBoxMaxX()) { // collision right side
-    speed = speed.reflectOverYAxis();
-    origin = origin.reflectVerticalLine(maxx - bBoxMaxX());
-  }
+  y = m * (bBoxMaxX() - x1) + y1;
+  if (y > bBoxMinY() && y < bBoxMaxY()) return true;
+  
+  double x = (bBoxMinY() - y1) / m + x1;
+  if (x > bBoxMinX() && x < bBoxMaxX()) return true;
 
-  if (origin.Y() > maxy - bBoxMaxY()) { // collision bottom side
-    speed = speed.reflectOverXAxis();
-    origin = origin.reflectHorizontalLine(maxy - bBoxMaxY());
-  }
+  x = (bBoxMaxY() - y1) / m + x1;
+  if (x > bBoxMinX() && x < bBoxMaxX()) return true;
 
-  if (origin.Y() < miny - bBoxMinY()) { // collision top side
-    speed = speed.reflectOverXAxis();
-    origin = origin.reflectHorizontalLine(miny - bBoxMinY());
-  }
+  return false;
 }

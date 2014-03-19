@@ -1,6 +1,6 @@
 #include "BrickGenerator.h"
 
-ShapeSimulator& BrickGenerator::generateBricks(ShapeSimulator& sim)
+BreakoutSimulator& BrickGenerator::generateBricks(BreakoutSimulator& sim)
 {
    double halfWindow = (height / 2);
    double column = width/10.0; //10 columns
@@ -22,7 +22,7 @@ ShapeSimulator& BrickGenerator::generateBricks(ShapeSimulator& sim)
       for(int j=0;j<10;j++)
       {
 	 if(randomGrid[i][j]==1)
-	    sim.addShape(new Brick(Point(i*column, j*row), column, row));
+	    sim.addBrick(new Brick(Point(i*column, j*row), column, row));
       }
    }
 

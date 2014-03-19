@@ -2,10 +2,12 @@
 #define __PADDLE_H
 
 #include "Shape.h"
+#include "2DGeom.h"
 #include <allegro5/allegro_primitives.h>
 
 class Paddle: public Shape {
 private:
+	Vector speed;
 	double width; // the paddle width
 	double height; // the paddle height
 	ALLEGRO_KEYBOARD_STATE *keystate;
@@ -20,7 +22,8 @@ public:
 	~Paddle();
 
 	void draw();
-	void updatePosition(double dt, int minx, int miny, int maxx, int maxy);
+	
+	void updatePosition(double dt, int minX, int minY, int maxX, int maxY);
 
 	double bBoxMaxX();
 	double bBoxMaxY();
