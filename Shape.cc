@@ -2,6 +2,13 @@
 
 Shape::Shape(Point o) : origin(o) {};
 
+
+void Shape::translate(Vector v)
+{
+  origin.setX(origin.X() + v.X());
+  origin.setY(origin.Y() + v.Y());
+}
+
 bool Shape::lineIntersects(double x1, double y1, double x2, double y2) {
   if ((x1 <= bBoxMinX() && x2 <= bBoxMinX()) || (y1 <= bBoxMinY() && y2 <= bBoxMinY()) || 
       (x1 >= bBoxMaxX() && x2 >= bBoxMaxX()) || (y1 >= bBoxMaxY() && y2 >= bBoxMaxY())) {

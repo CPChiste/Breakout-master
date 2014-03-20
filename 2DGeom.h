@@ -115,6 +115,12 @@ class Point {
 
   /// \return the y coordinate of the point
   double Y() const { return y; }
+
+  /// sets the x value
+  void setX(double _x) { x = _x; }
+
+  /// sets the y value
+  void setY(double _y) { y = _y; }
 };
 
 
