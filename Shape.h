@@ -36,6 +36,9 @@ class Shape {
    */
   bool lineIntersects(double x1, double y1, double x2, double y2);
 
+  /// Translate based on a vector
+  void translate(Vector v);
+
 	/// destructor must be virtual
 	virtual ~Shape() {}
 
