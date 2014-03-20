@@ -3,8 +3,10 @@
 
 #include "Brick.h"
 #include "BreakoutSimulator.h"
+#include "exceptions.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <iostream>
 
 class BrickGenerator
 {
@@ -12,6 +14,8 @@ class BrickGenerator
    int width, height; //width and height of the window
    int randomGrid[10][10];
   public:
+   ///Default constructor initializes 800 x 600 window
+  BrickGenerator() : width(800), height(600) {};
    ///Constructor to get the dimensions of the play field
    /**
       \param _width width of the play field

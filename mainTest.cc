@@ -7,7 +7,7 @@ int main(void) {
 	///Run our test suite
 	
 	//CppUnit::TextUi::TestRunner runner;
-	//runner.addTest(CollisionTestFixture::suite());
+	//runner.addTest(TestBrickGenerator::suite());
 	//runner.run();
 	
 	return(0);
