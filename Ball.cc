@@ -41,16 +41,19 @@ bool Ball::checkShapeCollision(double minX, double minY, double maxX, double max
     if (lineIntersects(botLeft.X(), botLeft.Y(), botRight.X(), botRight.Y())) {  //bottom input shape
       speed = speed.reflectOverXAxis();
       origin = Point(origin.X(), maxY + radius);
+      return true;
     }
 
     if (lineIntersects(topLeft.X(), topLeft.Y(), botLeft.X(), botLeft.Y())) { //left input shape
       speed = speed.reflectOverYAxis();
       origin = Point(minX - radius, origin.Y());
+      return true;
     }
 
     if (lineIntersects(topRight.X(), topRight.Y(), botRight.X(), botRight.Y())) { //right input shape
       speed = speed.reflectOverYAxis();
       origin = Point(maxX + radius, origin.Y());
+      return true;
     }
 
   return false;
