@@ -19,5 +19,4 @@ int main(void) {
 >>>>>>> 604d38171d7af1ff7fa22aa9f808a0a394bb96cc
    */
 	return(0);
-*/
 }
