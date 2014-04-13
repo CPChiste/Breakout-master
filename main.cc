@@ -4,8 +4,11 @@
 #include "Paddle.h"
 #include "BrickGenerator.h"
 #include "Paddle.h"
+#include <allegro5/allegro_primitives.h>
+#include <allegro5/allegro_image.h>
+#include <allegro5/allegro.h>
 
-int main(void) {
+int main(void) {  
    Display disp;  // create a 1000x1000 window
    BreakoutSimulator sim(disp, 100);
    BrickGenerator brickGen(disp.getW(), disp.getH());

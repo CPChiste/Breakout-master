@@ -9,7 +9,7 @@
 
 CFLAGS = -I /home/lib2720/allegro5/include -std=c++0x
 LIBDIR = /home/lib2720/allegro5/lib/
-LNFLAGS = -lallegro -lallegro_primitives -lallegro_font -lallegro_ttf -lcppunit -ldl
+LNFLAGS = -lallegro -lallegro_primitives -lallegro_image -lallegro_font -lallegro_ttf -lcppunit -ldl
 COMMONOBJECTS = Display.o Simulator.o BreakoutSimulator.o Shape.o Ball.o Paddle.o Brick.o BrickGenerator.o LiveDisplay.o
 OBJECTS = main.o
 TESTOBJS = mainTest.o

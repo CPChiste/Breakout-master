@@ -2,6 +2,9 @@
 #define __2DOBJECT_H
 
 #include "2DGeom.h"
+#include <allegro5/allegro_primitives.h>
+#include <allegro5/allegro.h>
+#include <string>
 
 /// generic Shape class.
 /**
@@ -10,7 +13,6 @@
 class Shape {
  protected:
   Point origin; // the origin of the shape
-
   /** private default constructor forces the explicit constructor to
       be used
   */

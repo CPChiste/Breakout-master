@@ -1,4 +1,6 @@
 #include <allegro5/allegro_primitives.h>
+#include <allegro5/allegro_image.h>
+#include <allegro5/allegro.h>
 #include <iostream>
 #include <cstdlib>
 
@@ -19,6 +21,7 @@ Display::Display(int w, int h) {
 	}
 
 	al_init_primitives_addon();
+        al_init_image_addon();
 }
 
 Display::~Display() {

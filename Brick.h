@@ -14,6 +14,7 @@ class Brick: public Shape
   private:
    double length; // the length of the box
    double height; // the height of the box
+   bool destroyed; // is brick destroyed?
 
 public:
 	/// initializing a square that can be animated
@@ -22,8 +23,10 @@ public:
 		 \param s the speed vector, in pixels per second
 		 \param _size a vector describing the length of all of the sides of the square
 	 */
-	Brick(Point o, double l, double h);
-	
+   Brick(Point o, double l, double h, bool isHit=false);
+
+        bool isDestroyed();
+        void setDestroyed(bool isHit);
 	void draw();
 
 	double bBoxMaxX();

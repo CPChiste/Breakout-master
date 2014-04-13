@@ -28,12 +28,12 @@ void BreakoutSimulator::updateModel(double dt){
 	 else
 	 {
 	    //bricks
-	    for (std::list<Brick*>::iterator bit=brickList.begin(); bit!=brickList.end(); ++bit) {
-	       
-	       
-	       if ((*it)->checkShapeCollision((*bit)->bBoxMinX(), (*bit)->bBoxMinY(), 
-					      (*bit)->bBoxMaxX(), (*bit)->bBoxMaxY(), false) == true) {
-		  // do something with the bricks
+	    for (std::list<Brick*>::iterator bit=brickList.begin(); bit!=brickList.end(); ++bit) {	       
+	       if(!(*bit)->isDestroyed()) {
+		  if ((*it)->checkShapeCollision((*bit)->bBoxMinX(), (*bit)->bBoxMinY(), 
+						 (*bit)->bBoxMaxX(), (*bit)->bBoxMaxY(), false) == true) {
+		     (*bit)->setDestroyed(true);
+		  }
 	       }
 	    }
 	    

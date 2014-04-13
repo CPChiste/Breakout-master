@@ -1,5 +1,7 @@
 #include "Ball.h"
+#include <allegro5/allegro.h>
 #include <allegro5/allegro_primitives.h>
+#include <allegro5/allegro_image.h>
 #include <math.h>
 #include "2DGeom.h"
 
@@ -16,13 +18,6 @@ void Ball::checkWallCollisions(double minX, double minY, double maxX, double max
     origin = origin.reflectVerticalLine(maxX - radius);
   }
 
-  //TODO:: Remove bottom collisions when running in actual game
-/*
-  if (bBoxMaxY() >= maxY) { // collision bottom side
-    speed = speed.reflectOverXAxis();
-    origin = origin.reflectHorizontalLine(maxY - radius);
-  }
-*/
   if (bBoxMinY() < minY) { // collision top side
     speed = speed.reflectOverXAxis();
     origin = origin.reflectHorizontalLine(minY + radius);
@@ -46,16 +41,19 @@ bool Ball::checkShapeCollision(double minX, double minY, double maxX, double max
     if (lineIntersects(botLeft.X(), botLeft.Y(), botRight.X(), botRight.Y())) {  //bottom input shape
       speed = speed.reflectOverXAxis();
       origin = Point(origin.X(), maxY + radius);
+      return true;
     }
 
     if (lineIntersects(topLeft.X(), topLeft.Y(), botLeft.X(), botLeft.Y())) { //left input shape
       speed = speed.reflectOverYAxis();
       origin = Point(minX - radius, origin.Y());
+      return true;
     }
 
     if (lineIntersects(topRight.X(), topRight.Y(), botRight.X(), botRight.Y())) { //right input shape
       speed = speed.reflectOverYAxis();
       origin = Point(maxX + radius, origin.Y());
+      return true;
     }
 
   return false;
@@ -71,7 +69,9 @@ void Ball::updatePosition(double dt) {
 }
 
 void Ball::draw() {
-	al_draw_circle(origin.X(), origin.Y(), radius, al_map_rgb(0, 200, 200), 2);
+  ALLEGRO_BITMAP *image = al_load_bitmap("ball.bmp");
+  al_draw_bitmap(image, origin.X() - radius, origin.Y() - radius, 0);
+  al_flip_display();
 }
 
 double Ball::bBoxMaxX() {
