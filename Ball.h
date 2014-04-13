@@ -3,6 +3,7 @@
 
 #include "2DGeom.h"
 #include "Shape.h"
+#include <string>
 
 class Ball: public Shape {
 private:

@@ -1,5 +1,7 @@
 #include "Ball.h"
+#include <allegro5/allegro.h>
 #include <allegro5/allegro_primitives.h>
+#include <allegro5/allegro_image.h>
 #include <math.h>
 #include "2DGeom.h"
 
@@ -71,7 +73,9 @@ void Ball::updatePosition(double dt) {
 }
 
 void Ball::draw() {
-	al_draw_circle(origin.X(), origin.Y(), radius, al_map_rgb(0, 200, 200), 2);
+  ALLEGRO_BITMAP *image = al_load_bitmap("ball.bmp");
+  al_draw_bitmap(image, origin.X() - radius, origin.Y() - radius, 0);
+  al_flip_display();
 }
 
 double Ball::bBoxMaxX() {
