@@ -31,35 +31,32 @@ void Ball::checkWallCollisions(double minX, double minY, double maxX, double max
 
 bool Ball::checkShapeCollision(double minX, double minY, double maxX, double maxY, bool sBounce) {
   //if sbounce then change vector speed based on where it hit the object
+ 
+    Point topLeft = Point(minX, minY);
+    Point topRight = Point(maxX, minY);
+    Point botLeft = Point(minX, maxY);
+    Point botRight = Point(maxX, maxY);
+    
+    if (lineIntersects(topLeft.X(), topLeft.Y(), topRight.X(), topRight.Y())) {  //top input shape
+      speed = speed.reflectOverXAxis();
+      origin = Point(origin.X(), minY - radius);
+      return true;
+    }
 
-  Point topLeft = Point(minX, minY);
-  Point topRight = Point(maxX, minY);
-  Point botLeft = Point(minX, maxY);
-  Point botRight = Point(maxX, maxY);
+    if (lineIntersects(botLeft.X(), botLeft.Y(), botRight.X(), botRight.Y())) {  //bottom input shape
+      speed = speed.reflectOverXAxis();
+      origin = Point(origin.X(), maxY + radius);
+    }
 
-  if (lineIntersects(topLeft.X(), topLeft.Y(), botLeft.X(), botLeft.Y())) { 
-    speed = speed.reflectOverYAxis();
-    origin = Point(minX - radius, origin.Y());
-    return true;
-  }
+    if (lineIntersects(topLeft.X(), topLeft.Y(), botLeft.X(), botLeft.Y())) { //left input shape
+      speed = speed.reflectOverYAxis();
+      origin = Point(minX - radius, origin.Y());
+    }
 
-  if (lineIntersects(topLeft.X(), topLeft.Y(), topRight.X(), topRight.Y())) {
-    speed = speed.reflectOverXAxis();
-    origin = Point(origin.X(), minY - radius);
-    return true;
-  }
-
-  if (lineIntersects(topRight.X(), topRight.Y(), botRight.X(), botRight.Y())) {
-    speed = speed.reflectOverYAxis();
-    origin = Point(maxX + radius, origin.Y());
-    return true;
-  }
-
-  if (lineIntersects(botLeft.X(), botLeft.Y(), botRight.X(), botRight.Y())) {
-    speed = speed.reflectOverXAxis();
-    origin = Point(origin.X(), maxY + radius);
-    return true;
-  } 
+    if (lineIntersects(topRight.X(), topRight.Y(), botRight.X(), botRight.Y())) { //right input shape
+      speed = speed.reflectOverYAxis();
+      origin = Point(maxX + radius, origin.Y());
+    }
 
   return false;
 }
