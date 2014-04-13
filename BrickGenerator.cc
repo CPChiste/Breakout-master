@@ -23,13 +23,14 @@ BreakoutSimulator& BrickGenerator::generateBricks(BreakoutSimulator& sim)
       {
 	 if(randomGrid[i][j]==1)
 	    sim.addBrick(new Brick(Point(i*column, j*row), column, row));
+	 /*
 	 try
 	 {
 	    throw BoundingError("\nBounding Error: a brick is out of bounds.");
 	 } catch(BoundingError& be)
 	 {
 	    std::cerr << be.what() << std::endl;
-	 }
+	    } */
       }
    }
 

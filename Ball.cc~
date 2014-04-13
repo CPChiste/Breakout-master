@@ -18,6 +18,13 @@ void Ball::checkWallCollisions(double minX, double minY, double maxX, double max
     origin = origin.reflectVerticalLine(maxX - radius);
   }
 
+  //TODO:: Remove bottom collisions when running in actual game
+/*
+  if (bBoxMaxY() >= maxY) { // collision bottom side
+    speed = speed.reflectOverXAxis();
+    origin = origin.reflectHorizontalLine(maxY - radius);
+  }
+*/
   if (bBoxMinY() < minY) { // collision top side
     speed = speed.reflectOverXAxis();
     origin = origin.reflectHorizontalLine(minY + radius);
