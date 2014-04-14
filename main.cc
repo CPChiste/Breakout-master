@@ -13,7 +13,7 @@
 #include <ncurses.h>
 
 int main(void) { 
-   //srand(time(0));
+   srand(time(0));
 
    Display disp;  // create a 1000x1000 window
    BreakoutSimulator* sim = new BreakoutSimulator(disp, 100);
@@ -22,7 +22,7 @@ int main(void) {
    brickGen.generateBricks(sim);
    
    sim->addBall(new Ball(Point(400, 400), 8, new BallNoPowerUpStrategy()));
-   sim->addPaddle(new Paddle(Point(400, 500), 20, new PaddleNoPowerUpStrategy()));
+   sim->addPaddle(new Paddle(Point(400, 550), 20, new PaddleNoPowerUpStrategy()));
 	 
    sim->run();
    

@@ -1,3 +1,10 @@
+/** The Ball Factory Implmentation
+
+   Responsibilities:
+                        
+   1) Create/Return a random BallPowerUpStrategy
+*/
+
 #ifndef __BALLPOWERUPFACTORY_H
 #define __BALLPOWERUPFACTORY_H
 
@@ -8,8 +15,11 @@ private:
 	int randomNumber(int min, int max);
 public:
 	BallPowerUpFactory() {};
-	BallPowerUpStrategy createRandomPowerUp();
 	~BallPowerUpFactory() {};
+
+	/// Randomly create a BallPowerUpStrategy- currently only implements 2 Strategys
+	/// \return a BallPowerUpStrategy
+	BallPowerUpStrategy createRandomPowerUp();
 };
 
 #endif

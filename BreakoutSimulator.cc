@@ -14,10 +14,12 @@ BreakoutSimulator::BreakoutSimulator(const Display & d, int fps) : Simulator(d, 
 void BreakoutSimulator::updateModel(double dt){
   if(!gameOver)
   {
+
+    // Update the position of the ball + paddle
     ball->updatePosition(dt);
     paddle->updatePosition(dt, 0, 0, width, height);
       
-
+    /// update posion of current powerUp's
     for (std::list<PowerUp*>::iterator pit=powerUpList.begin(); pit!=powerUpList.end(); ++pit) {
       if (!(*pit)->isDestroyed()) {
         (*pit)->updatePosition(dt);
@@ -26,7 +28,6 @@ void BreakoutSimulator::updateModel(double dt){
 	 
     //check wall collisions
     ball->checkWallCollisions(0, 0, width, height);
-      
     if (ball->checkBottomWallCollision(height+40) == true) {
 	   loseBall();
     }
@@ -75,7 +76,8 @@ void BreakoutSimulator::addPowerUp(PowerUp* pu) {
 }
 
 void BreakoutSimulator::createPowerUp(double x, double y) {
-  bool isPowerUp = (rand() % 100) < 100;
+  //probablity of 100% -  returns true if <50%
+  bool isPowerUp = (rand() % 100) < 50;
    
   if (isPowerUp) {
     addPowerUp(new PowerUp(Point(x, y), Vector(0, 150), 15, 15));
@@ -105,12 +107,13 @@ void BreakoutSimulator::drawModel() {
       ball->draw();
       paddle->draw();
       for (std::list<Brick*>::iterator it=brickList.begin(); it!=brickList.end(); ++it){
-	 (*it)->draw();
+	     (*it)->draw();
       }
       for (std::list<PowerUp*>::iterator pit=powerUpList.begin(); pit!=powerUpList.end(); ++pit){
-	 (*pit)->draw();
+	     (*pit)->draw();
       }
    }
+   
    lives->draw(gameOver);
       
    al_flip_display();
@@ -127,8 +130,6 @@ void BreakoutSimulator::loseBall() {
 }
 
 BreakoutSimulator::~BreakoutSimulator() {
-  delete ball;
-  delete paddle;
   while(!brickList.empty()) {
      delete brickList.front(); // frees the object pointed to by the first item
      brickList.pop_front();    // remove the first item from the list
@@ -137,6 +138,8 @@ BreakoutSimulator::~BreakoutSimulator() {
      delete powerUpList.front(); // frees the object pointed to by the first item
      powerUpList.pop_front();    // remove the first item from the list
   }
+  delete ball;
+  delete paddle;
   delete lives;
   delete ballFactory;
   delete paddleFactory;

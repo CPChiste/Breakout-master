@@ -17,7 +17,6 @@ bool PowerUp::isDestroyed() {
 
 void PowerUp::draw() {
    if(!destroyed) {
-      //al_draw_rectangle(origin.X(), origin.Y(), origin.X()+length, origin.Y()+height, al_map_rgb(150, 150, 255), 1);
       al_draw_bitmap(image, origin.X(), origin.Y(), 0);
    }
 }
