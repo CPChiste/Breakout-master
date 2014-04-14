@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <iostream>
 #include <allegro5/allegro_primitives.h>
-
+#include <allegro5/allegro_image.h>
 
 Brick::Brick(Point o, double l, double h, bool d) : Shape(o), length(l), height(h) , destroyed(d) {
    std::string texture = "brick" + std::to_string(static_cast<long long>(rand() % 5)) + ".png";
@@ -11,7 +11,6 @@ Brick::Brick(Point o, double l, double h, bool d) : Shape(o), length(l), height(
    if(image == NULL)
    {
       std::cerr << "Cannot allocate brick bitmap" << std::endl;
-      exit(1); // panic
    }
 };
 

@@ -4,6 +4,7 @@
 #include <cppunit/extensions/HelperMacros.h>
 #include "Shape.h"
 #include "Ball.h"
+#include "BallNoPowerUpStrategy.h"
 
 class BallTestFixture : public CppUnit::TestFixture {
 public:
@@ -23,7 +24,7 @@ private:
 	Point maxWall = Point(200, 200);
 public:
 	void setUp() {
-		b = new Ball(Point(100, 100), Vector(20, 20), 10);
+		b = new Ball(Point(100, 100), 10, new BallNoPowerUpStrategy());
 	}
 
 	void tearDown() {
@@ -47,27 +48,27 @@ public:
 	}
 
 	void TestLeftWallCollision() {
-		CPPUNIT_ASSERT(b->checkShapeCollision(minWall.X(), minWall.Y(), maxWall.X(), maxWall.Y(), false) == false);
+		CPPUNIT_ASSERT(b->checkShapeCollision(minWall.X(), minWall.Y(), maxWall.X(), maxWall.Y()) == false);
 		b->translate(Vector(-100, 0));
-		CPPUNIT_ASSERT(b->checkShapeCollision(minWall.X(), minWall.Y(), maxWall.X(), maxWall.Y(), false) == true);
+		CPPUNIT_ASSERT(b->checkShapeCollision(minWall.X(), minWall.Y(), maxWall.X(), maxWall.Y()) == true);
 	}
 
 	void TestTopWallCollision() {
-		CPPUNIT_ASSERT(b->checkShapeCollision(minWall.X(), minWall.Y(), maxWall.X(), maxWall.Y(), false) == false);
+		CPPUNIT_ASSERT(b->checkShapeCollision(minWall.X(), minWall.Y(), maxWall.X(), maxWall.Y()) == false);
 		b->translate(Vector(0, -100));
-		CPPUNIT_ASSERT(b->checkShapeCollision(minWall.X(), minWall.Y(), maxWall.X(), maxWall.Y(), false) == true);
+		CPPUNIT_ASSERT(b->checkShapeCollision(minWall.X(), minWall.Y(), maxWall.X(), maxWall.Y()) == true);
 	}
 
 	void TestRightWallCollision() {
-		CPPUNIT_ASSERT(b->checkShapeCollision(minWall.X(), minWall.Y(), maxWall.X(), maxWall.Y(), false) == false);
+		CPPUNIT_ASSERT(b->checkShapeCollision(minWall.X(), minWall.Y(), maxWall.X(), maxWall.Y()) == false);
 		b->translate(Vector(100, 0));
-		CPPUNIT_ASSERT(b->checkShapeCollision(minWall.X(), minWall.Y(), maxWall.X(), maxWall.Y(), false) == true);
+		CPPUNIT_ASSERT(b->checkShapeCollision(minWall.X(), minWall.Y(), maxWall.X(), maxWall.Y()) == true);
 	}
 
 	void TestBottomWallCollision() {
-		CPPUNIT_ASSERT(b->checkShapeCollision(minWall.X(), minWall.Y(), maxWall.X(), maxWall.Y(), false) == false);
+		CPPUNIT_ASSERT(b->checkShapeCollision(minWall.X(), minWall.Y(), maxWall.X(), maxWall.Y()) == false);
 		b->translate(Vector(0, 100));
-		CPPUNIT_ASSERT(b->checkShapeCollision(minWall.X(), minWall.Y(), maxWall.X(), maxWall.Y(), false) == true);
+		CPPUNIT_ASSERT(b->checkShapeCollision(minWall.X(), minWall.Y(), maxWall.X(), maxWall.Y()) == true);
 	}
 
 };
