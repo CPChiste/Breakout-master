@@ -9,11 +9,12 @@ BreakoutSimulator::BreakoutSimulator(const Display & d, int fps) : Simulator(d, 
 }
 
 void BreakoutSimulator::updateModel(double dt){
-   if(!gameOver)
-   {
+     if(!gameOver)
+     {
       ball->updatePosition(dt);
       paddle->updatePosition(dt, 0, 0, width, height);
       
+
       for (std::list<PowerUp*>::iterator pit=powerUpList.begin(); pit!=powerUpList.end(); ++pit) {
         if (!(*pit)->isDestroyed()) {
 	   (*pit)->updatePosition(dt);
@@ -22,10 +23,11 @@ void BreakoutSimulator::updateModel(double dt){
 	 
       //check wall collisions
       ball->checkWallCollisions(0, 0, width, height);
+      
       if (ball->checkBottomWallCollision(height+40) == true) {
 	 loseBall();
       }
-	 
+
       //check ball->brick collisions
       for (std::list<Brick*>::iterator bit=brickList.begin(); bit!=brickList.end(); ++bit) {	       
 	if(!(*bit)->isDestroyed()) {
@@ -35,10 +37,10 @@ void BreakoutSimulator::updateModel(double dt){
           }
 	}
       }
-	    
+ 
       //check ball->paddle collision
       ball->checkShapeCollision(paddle->bBoxMinX(), paddle->bBoxMinY(), paddle->bBoxMaxX(), paddle->bBoxMaxY());
-      
+ 
       //check paddle->powerUp collision
       for (std::list<PowerUp*>::iterator pit=powerUpList.begin(); pit!=powerUpList.end(); ++pit) {
         if (!(*pit)->isDestroyed()) {
@@ -48,7 +50,8 @@ void BreakoutSimulator::updateModel(double dt){
           }   
         }
       } 
-   }
+
+    }
 }
 
 void BreakoutSimulator::addBall(Ball* b) {
@@ -73,8 +76,6 @@ void BreakoutSimulator::createPowerUp() {
    if (isPowerUp) {
       addPowerUp(new PowerUp(random->randomOrigin(), random->randomSpeed(), 10, 10));
    }
-
-   delete random;
 }
 
 void BreakoutSimulator::applyPowerUp() {

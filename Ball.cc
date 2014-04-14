@@ -58,11 +58,11 @@ bool Ball::checkShapeCollision(double minX, double minY, double maxX, double max
 }
 
 void Ball::increaseSpeed() {
-  speed = speed * Vector(1.5, 1.5);
+  speed = speed * Vector(2, 2);
 }
 
 void Ball::decreaseSpeed() {
-  speed = speed * Vector(0.5, 0.5);
+  speed = speed * Vector(0.8, 0.8);
 }
 
 bool Ball::checkBottomWallCollision(double maxY) {

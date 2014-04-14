@@ -11,18 +11,20 @@
 #include <ncurses.h>
 
 int main(void) { 
-   srand(time(0));
+   //srand(time(0));
 
    Display disp;  // create a 1000x1000 window
-   BreakoutSimulator sim(disp, 100);
+   BreakoutSimulator* sim = new BreakoutSimulator(disp, 100);
    BrickGenerator brickGen(disp.getW(), disp.getH());
    
-   sim = brickGen.generateBricks(sim);
+   brickGen.generateBricks(sim);
    
-   sim.addBall(new Ball(Point(400, 400), Vector(200, 200), 8));
-   sim.addPaddle(new Paddle(Point(400, 500), 150, 20));
+   sim->addBall(new Ball(Point(400, 400), Vector(200, 200), 8));
+   sim->addPaddle(new Paddle(Point(400, 500), 150, 20));
 	 
-   sim.run();
+   sim->run();
    
+   delete sim;
+
    return 0;
 }

@@ -44,11 +44,15 @@ void Paddle::updatePosition(double dt, int minX, int minY, int maxX, int maxY)
 }
 
 void Paddle::increaseWidth() {
-  width += 10;
+  if (width < 650) {
+    width += 50;
+  }
 }
 
 void Paddle::decreaseWidth() {
-  width -= 10;
+  if (width > 80) {
+    width -= 50;
+  }
 }
 
 void Paddle::draw() {
