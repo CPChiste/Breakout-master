@@ -7,19 +7,24 @@
 #include "Brick.h"
 #include "Ball.h"
 #include "Paddle.h"
+#include "PowerUp.h"
+#include "Randomizer.h"
 #include "LiveDisplay.h"
 #include <allegro5/allegro_primitives.h>
 #include <list>
 
-
 class BreakoutSimulator: public Simulator {
 private:
    int width, height; // of the window
-  std::list<Ball*> ballList;
-  std::list<Brick*> brickList;
-  std::list<Paddle*> paddleList;
-  LiveDisplay *lives;
-  bool gameOver;
+   Ball* ball;
+   Paddle* paddle;
+   std::list<Brick*> brickList;
+   std::list<PowerUp*> powerUpList;
+
+   LiveDisplay *lives;
+   bool gameOver;
+
+   Randomizer* random;
 
 public:
   /// constructor initializing the simulator
@@ -33,13 +38,16 @@ public:
   ~BreakoutSimulator();
 
   void updateModel(double dt);
-
-
-  void addBall(Ball* sh);
+  
+  void addBall(Ball* b);
+  void addPaddle(Paddle* p);
   void addBrick(Brick* sh);
-  void addPaddle(Paddle* sh);
+  void addPowerUp(PowerUp* pu);
+  
+  void createPowerUp();
+  void applyPowerUp();
 
-  void loseBall(std::list<Ball*>::iterator);
+  void loseBall();
   
   void drawModel();
 };

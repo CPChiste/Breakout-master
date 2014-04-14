@@ -1,7 +1,7 @@
 #include "Brick.h"
 #include <allegro5/allegro_primitives.h>
 
-Brick::Brick(Point o, double l, double h, bool isHit) : Shape(o), length(l), height(h) , destroyed(isHit) {};
+Brick::Brick(Point o, double l, double h, bool d) : Shape(o), length(l), height(h) , destroyed(d) {};
 
 void Brick::draw() {
    if(!destroyed)

@@ -7,8 +7,11 @@
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_image.h>
 #include <allegro5/allegro.h>
+#include <ctime>
 
-int main(void) {  
+int main(void) { 
+   srand(time(0));
+
    Display disp;  // create a 1000x1000 window
    BreakoutSimulator sim(disp, 100);
    BrickGenerator brickGen(disp.getW(), disp.getH());

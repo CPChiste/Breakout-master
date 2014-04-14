@@ -19,13 +19,16 @@ public:
 	Ball(Point o, Vector s, double r);
 
   	void updatePosition(double dt);
+        
+        void increaseSpeed();
+        void decreaseSpeed();
 
 	void checkWallCollisions(double minX, double minY, double maxX, double maxY);
-	bool checkShapeCollision(double minX, double minY, double maxX, double maxY, bool sBounce);
+	bool checkShapeCollision(double minX, double minY, double maxX, double maxY);
 	bool checkBottomWallCollision(double maxY);
 
 	void draw();
-
+      
 	double bBoxMaxX();
 	double bBoxMaxY();
 	double bBoxMinX();

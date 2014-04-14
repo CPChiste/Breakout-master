@@ -43,6 +43,14 @@ void Paddle::updatePosition(double dt, int minX, int minY, int maxX, int maxY)
    } 
 }
 
+void Paddle::increaseWidth() {
+  width += 10;
+}
+
+void Paddle::decreaseWidth() {
+  width -= 10;
+}
+
 void Paddle::draw() {
    al_draw_filled_rectangle(origin.X(), origin.Y(), origin.X()+width, origin.Y()+height, al_map_rgb(237, 41, 57));
 }

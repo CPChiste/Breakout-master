@@ -24,9 +24,7 @@ void Ball::checkWallCollisions(double minX, double minY, double maxX, double max
   } 
 }
 
-bool Ball::checkShapeCollision(double minX, double minY, double maxX, double maxY, bool sBounce) {
-  //if sbounce then change vector speed based on where it hit the object
- 
+bool Ball::checkShapeCollision(double minX, double minY, double maxX, double maxY) {
     Point topLeft = Point(minX, minY);
     Point topRight = Point(maxX, minY);
     Point botLeft = Point(minX, maxY);
@@ -57,6 +55,14 @@ bool Ball::checkShapeCollision(double minX, double minY, double maxX, double max
     }
 
   return false;
+}
+
+void Ball::increaseSpeed() {
+  speed = speed * Vector(1.5, 1.5);
+}
+
+void Ball::decreaseSpeed() {
+  speed = speed * Vector(0.5, 0.5);
 }
 
 bool Ball::checkBottomWallCollision(double maxY) {

@@ -53,6 +53,15 @@ class Vector {
     return Vector(x-v.X(), y-v.Y());
   }
   
+    /// vector multiplication
+  /**
+     \param vector to multiply with
+     \return a vector equal to first vector times the second vector
+   */
+  Vector operator*(Vector v) const {
+    return Vector(x*v.X(), y*v.Y());
+  }
+  
   /// *this is reflected over the Y axis
   /**
      \return the reflection of *this over the y axis, ie a vector with

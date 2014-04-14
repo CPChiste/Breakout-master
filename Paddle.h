@@ -24,6 +24,9 @@ public:
 	void draw();
 	
 	void updatePosition(double dt, int minX, int minY, int maxX, int maxY);
+       
+	void increaseWidth();
+        void decreaseWidth();  
 
 	double bBoxMaxX();
 	double bBoxMaxY();
