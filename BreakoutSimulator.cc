@@ -74,7 +74,7 @@ void BreakoutSimulator::createPowerUp() {
    bool isPowerUp = (rand() % 100) < 100;
    
    if (isPowerUp) {
-      addPowerUp(new PowerUp(random->randomOrigin(), random->randomSpeed(), 10, 10));
+      addPowerUp(new PowerUp(random->randomOrigin(), random->randomSpeed(), 15, 15));
    }
 }
 

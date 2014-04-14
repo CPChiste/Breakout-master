@@ -11,6 +11,7 @@ class PowerUp: public Shape
    double length;
    double height;
    bool destroyed;
+   ALLEGRO_BITMAP *image;
 
   public:
    PowerUp(Point o, Vector s, double l, double h, bool destroyed=false);
