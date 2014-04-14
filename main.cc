@@ -8,6 +8,7 @@
 #include <allegro5/allegro_image.h>
 #include <allegro5/allegro.h>
 #include <ctime>
+#include <ncurses.h>
 
 int main(void) { 
    srand(time(0));
@@ -18,8 +19,10 @@ int main(void) {
    
    sim = brickGen.generateBricks(sim);
    
-   sim.addBall(new Ball(Point(400, 400), Vector(200, 200), 10));
+   sim.addBall(new Ball(Point(400, 400), Vector(200, 200), 8));
    sim.addPaddle(new Paddle(Point(400, 500), 150, 20));
-
+	 
    sim.run();
+   
+   return 0;
 }

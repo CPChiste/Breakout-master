@@ -9,7 +9,6 @@ class Ball: public Shape {
 private:
 	Vector speed;
 	double radius; // the balls raidius 
-
 public:
 	/// initialize a ball that can be animated
 	/** \param o the origin of the drawing in pixels

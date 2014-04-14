@@ -6,8 +6,6 @@ BreakoutSimulator& BrickGenerator::generateBricks(BreakoutSimulator& sim)
    double column = width/10.0; //10 columns
    double row = halfWindow/10.0; //10 rows
 
-   srand(time(NULL));
-
    for(int i=0;i<10;i++)
    {
       for(int j=1;j<10;j++)

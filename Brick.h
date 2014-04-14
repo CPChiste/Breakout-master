@@ -2,6 +2,7 @@
 #define __BRICK_H
 
 #include "Shape.h"
+#include <string>
 ///Brick class
 /**
    Inherits from the abstract Shape class
@@ -15,7 +16,7 @@ class Brick: public Shape
    double length; // the length of the box
    double height; // the height of the box
    bool destroyed; // is brick destroyed?
-
+   ALLEGRO_BITMAP *image; // image the brick uses
 public:
 	/// initializing a square that can be animated
 	/**
