@@ -4,6 +4,8 @@
 #include "Paddle.h"
 #include "BrickGenerator.h"
 #include "Paddle.h"
+#include "BallNoPowerUpStrategy.h"
+#include "PaddleNoPowerUpStrategy.h"
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_image.h>
 #include <allegro5/allegro.h>
@@ -19,8 +21,8 @@ int main(void) {
    
    brickGen.generateBricks(sim);
    
-   sim->addBall(new Ball(Point(400, 400), Vector(200, 200), 8));
-   sim->addPaddle(new Paddle(Point(400, 500), 150, 20));
+   sim->addBall(new Ball(Point(400, 400), 8, new BallNoPowerUpStrategy()));
+   sim->addPaddle(new Paddle(Point(400, 500), 20, new PaddleNoPowerUpStrategy()));
 	 
    sim->run();
    

@@ -3,6 +3,7 @@
 
 #include "Shape.h"
 #include "2DGeom.h"
+#include "PaddlePowerUpStrategy.h"
 #include <allegro5/allegro_primitives.h>
 
 class Paddle: public Shape {
@@ -11,6 +12,7 @@ private:
 	double width; // the paddle width
 	double height; // the paddle height
 	ALLEGRO_KEYBOARD_STATE *keystate;
+	PaddlePowerUpStrategy powerUp;
 
 public:
 	/// Initialize the paddle, including 
@@ -18,16 +20,14 @@ public:
 		\param w the width of the paddle, in pixels
 		\param h the height of the paddle, in pixels
 	*/
-	Paddle(Point o, double w, double h);
+	Paddle(Point o, double h, PaddlePowerUpStrategy p);
 	~Paddle();
 
 	void draw();
-	
 	void updatePosition(double dt, int minX, int minY, int maxX, int maxY);
        
-	void increaseWidth();
-        void decreaseWidth();  
-
+    void setPowerUp(PaddlePowerUpStrategy p);
+	
 	double bBoxMaxX();
 	double bBoxMaxY();
 	double bBoxMinX();

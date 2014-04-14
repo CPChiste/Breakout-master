@@ -8,7 +8,8 @@
 #include "Ball.h"
 #include "Paddle.h"
 #include "PowerUp.h"
-#include "Randomizer.h"
+#include "BallPowerUpFactory.h"
+#include "PaddlePowerUpFactory.h"
 #include "LiveDisplay.h"
 #include <allegro5/allegro_primitives.h>
 #include <list>
@@ -24,7 +25,8 @@ private:
    LiveDisplay *lives;
    bool gameOver;
 
-   Randomizer* random;
+   BallPowerUpFactory* ballFactory;
+   PaddlePowerUpFactory* paddleFactory;
 
 public:
   /// constructor initializing the simulator
@@ -44,8 +46,9 @@ public:
   void addBrick(Brick* sh);
   void addPowerUp(PowerUp* pu);
   
-  void createPowerUp();
+  void createPowerUp(double x, double y);
   void applyPowerUp();
+  int randomNumber(int min, int max);
 
   void loseBall();
   

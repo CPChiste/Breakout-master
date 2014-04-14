@@ -1,57 +1,61 @@
 #include "BreakoutSimulator.h"
-#include "Randomizer.h"
+#include "BallNoPowerUpStrategy.h"
+#include "BallPowerUpFactory.h"
+#include "PaddlePowerUpFactory.h"
 
 BreakoutSimulator::BreakoutSimulator(const Display & d, int fps) : Simulator(d, fps) { 
-   random = new Randomizer();
    width = d.getW(); height = d.getH(); 
    lives = new LiveDisplay(3);
    gameOver = false;
+   ballFactory = new BallPowerUpFactory();
+   paddleFactory = new PaddlePowerUpFactory();
 }
 
 void BreakoutSimulator::updateModel(double dt){
-     if(!gameOver)
-     {
-      ball->updatePosition(dt);
-      paddle->updatePosition(dt, 0, 0, width, height);
+  if(!gameOver)
+  {
+    ball->updatePosition(dt);
+    paddle->updatePosition(dt, 0, 0, width, height);
       
 
-      for (std::list<PowerUp*>::iterator pit=powerUpList.begin(); pit!=powerUpList.end(); ++pit) {
-        if (!(*pit)->isDestroyed()) {
-	   (*pit)->updatePosition(dt);
-        }
-      } 
+    for (std::list<PowerUp*>::iterator pit=powerUpList.begin(); pit!=powerUpList.end(); ++pit) {
+      if (!(*pit)->isDestroyed()) {
+        (*pit)->updatePosition(dt);
+      }
+    } 
 	 
-      //check wall collisions
-      ball->checkWallCollisions(0, 0, width, height);
+    //check wall collisions
+    ball->checkWallCollisions(0, 0, width, height);
       
-      if (ball->checkBottomWallCollision(height+40) == true) {
-	 loseBall();
-      }
-
-      //check ball->brick collisions
-      for (std::list<Brick*>::iterator bit=brickList.begin(); bit!=brickList.end(); ++bit) {	       
-	if(!(*bit)->isDestroyed()) {
-          if (ball->checkShapeCollision((*bit)->bBoxMinX(), (*bit)->bBoxMinY(), (*bit)->bBoxMaxX(), (*bit)->bBoxMaxY()) == true) {
-	       (*bit)->setDestroyed(true);
-               createPowerUp();
-          }
-	}
-      }
- 
-      //check ball->paddle collision
-      ball->checkShapeCollision(paddle->bBoxMinX(), paddle->bBoxMinY(), paddle->bBoxMaxX(), paddle->bBoxMaxY());
- 
-      //check paddle->powerUp collision
-      for (std::list<PowerUp*>::iterator pit=powerUpList.begin(); pit!=powerUpList.end(); ++pit) {
-        if (!(*pit)->isDestroyed()) {
-          if ((*pit)->checkShapeCollision(paddle->bBoxMinX(), paddle->bBoxMinY(), paddle->bBoxMaxX(), paddle->bBoxMaxY()) == true) {
-            (*pit)->setDestroyed(true);
-            applyPowerUp();
-          }   
-        }
-      } 
-
+    if (ball->checkBottomWallCollision(height+40) == true) {
+	   loseBall();
     }
+
+    //check ball->brick collisions
+    for (std::list<Brick*>::iterator bit=brickList.begin(); bit!=brickList.end(); ++bit) {	       
+	   if(!(*bit)->isDestroyed()) {
+        if (ball->checkShapeCollision((*bit)->bBoxMinX(), (*bit)->bBoxMinY(), (*bit)->bBoxMaxX(), (*bit)->bBoxMaxY()) == true) {
+          (*bit)->setDestroyed(true);
+          createPowerUp( ((*bit)->bBoxMinX() + (*bit)->bBoxMaxX()) / 2, 
+                         ((*bit)->bBoxMinY() + (*bit)->bBoxMaxY()) / 2 ); //Create power up at brick location
+        }
+	    }
+    }
+ 
+    //check ball->paddle collision
+    ball->checkShapeCollision(paddle->bBoxMinX(), paddle->bBoxMinY(), paddle->bBoxMaxX(), paddle->bBoxMaxY());
+ 
+    //check paddle->powerUp collision
+    for (std::list<PowerUp*>::iterator pit=powerUpList.begin(); pit!=powerUpList.end(); ++pit) {
+      if (!(*pit)->isDestroyed()) {
+        if ((*pit)->checkShapeCollision(paddle->bBoxMinX(), paddle->bBoxMinY(), paddle->bBoxMaxX(), paddle->bBoxMaxY()) == true) {
+          (*pit)->setDestroyed(true);
+          applyPowerUp();
+        }   
+      }
+    } 
+
+  }
 }
 
 void BreakoutSimulator::addBall(Ball* b) {
@@ -70,30 +74,28 @@ void BreakoutSimulator::addPowerUp(PowerUp* pu) {
    powerUpList.push_front(pu);
 }
 
-void BreakoutSimulator::createPowerUp() {
-   bool isPowerUp = (rand() % 100) < 100;
+void BreakoutSimulator::createPowerUp(double x, double y) {
+  bool isPowerUp = (rand() % 100) < 100;
    
-   if (isPowerUp) {
-      addPowerUp(new PowerUp(random->randomOrigin(), random->randomSpeed(), 15, 15));
-   }
+  if (isPowerUp) {
+    addPowerUp(new PowerUp(Point(x, y), Vector(0, 150), 15, 15));
+  }
 }
 
 void BreakoutSimulator::applyPowerUp() {
-   int number = random->randomNumber(1, 5);
-   switch(number) {
-      case 1:
-        ball->increaseSpeed();
- 	break;
-      case 2:
-  	ball->decreaseSpeed();
-	break;
-      case 3:
-        paddle->increaseWidth();
-	break;
-      case 4:
-        paddle->decreaseWidth();
-	break;
-   }
+  int number = randomNumber(1, 3);
+  switch(number) {
+    case 1:
+      ball->setPowerUp(ballFactory->createRandomPowerUp());
+ 	    break;
+    case 2:
+      paddle->setPowerUp(paddleFactory->createRandomPowerUp());
+	    break;
+  }
+}
+
+int BreakoutSimulator::randomNumber(int min, int max) {
+  return (rand()%(max-min))+min;
 }
 
 void BreakoutSimulator::drawModel() {
@@ -121,7 +123,7 @@ void BreakoutSimulator::loseBall() {
    {
      gameOver = true;
    }
-   ball = new Ball(Point(400, 400), Vector(200, 200), 10);
+   ball = new Ball(Point(400, 400), 8, new BallNoPowerUpStrategy());
 }
 
 BreakoutSimulator::~BreakoutSimulator() {
@@ -136,5 +138,6 @@ BreakoutSimulator::~BreakoutSimulator() {
      powerUpList.pop_front();    // remove the first item from the list
   }
   delete lives;
-  delete random;
+  delete ballFactory;
+  delete paddleFactory;
 }

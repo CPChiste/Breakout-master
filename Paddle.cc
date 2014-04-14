@@ -1,16 +1,14 @@
 #include "Paddle.h"
 #include <iostream>
 
-Paddle::Paddle(Point o, double w, double h)
-{
+Paddle::Paddle(Point o, double h, PaddlePowerUpStrategy p) : Shape(o), height(h), powerUp(p) {
    if (!al_install_keyboard()) {
       std::cerr << "Cannot initialize the keyboard" << std::endl;
       exit(1); // panic
    }
-   origin = o;
-   width = w;
-   height = h;
    keystate = new ALLEGRO_KEYBOARD_STATE;
+
+   width = powerUp->width(width);
 }
 
 Paddle::~Paddle()
@@ -43,20 +41,14 @@ void Paddle::updatePosition(double dt, int minX, int minY, int maxX, int maxY)
    } 
 }
 
-void Paddle::increaseWidth() {
-  if (width < 650) {
-    width += 50;
-  }
-}
-
-void Paddle::decreaseWidth() {
-  if (width > 80) {
-    width -= 50;
-  }
-}
-
 void Paddle::draw() {
    al_draw_filled_rounded_rectangle(origin.X(), origin.Y(), origin.X()+width, origin.Y()+height, 10, 10, al_map_rgb(237, 41, 237));
+}
+
+void Paddle::setPowerUp(PaddlePowerUpStrategy p) {
+  delete powerUp;
+  powerUp = p;
+  width = powerUp->width(width);
 }
 
 double Paddle::bBoxMaxX() {
