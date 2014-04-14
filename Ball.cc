@@ -5,7 +5,7 @@
 #include <math.h>
 #include "2DGeom.h"
 
-Ball::Ball(Point o, Vector s, double r) : Shape(o), speed(s), radius(r) {};
+Ball::Ball(Point o, Vector s, double r) : Shape(o), speed(s), radius(r){};
 
 void Ball::checkWallCollisions(double minX, double minY, double maxX, double maxY) {
 	if (bBoxMinX() <= minX) { // colision left side
@@ -69,9 +69,8 @@ void Ball::updatePosition(double dt) {
 }
 
 void Ball::draw() {
-  ALLEGRO_BITMAP *image = al_load_bitmap("ball.bmp");
-  al_draw_bitmap(image, origin.X() - radius, origin.Y() - radius, 0);
-  al_flip_display();
+   //al_draw_bitmap(image, origin.X() - radius, origin.Y() - radius, 0);
+   al_draw_filled_circle(origin.X(),origin.Y(),radius, al_map_rgb(237, 237, 41));
 }
 
 double Ball::bBoxMaxX() {

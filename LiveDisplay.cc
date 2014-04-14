@@ -46,7 +46,7 @@ int LiveDisplay::loseLives(int toLose = 1)
 
 const char* LiveDisplay::lifeString()
 {
-   std::string text = " LIVES: " + std::to_string(static_cast<long long>(lives));
+   std::string text = ".LIVES: " + std::to_string(static_cast<long long>(lives));
    return text.c_str();
 }
 
@@ -54,7 +54,7 @@ void LiveDisplay::draw(bool gameOver)
 {
    if (gameOver)
    {
-      al_draw_text(liveFont, al_map_rgb(255, 255, 255), 300, 200, 0, std::string(" GAME OVER").c_str());
+      al_draw_text(liveFont, al_map_rgb(255, 255, 255), 300, 200, 0, std::string(".GAME OVER").c_str());
    }
    else
    {

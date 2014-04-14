@@ -44,7 +44,7 @@ void Paddle::updatePosition(double dt, int minX, int minY, int maxX, int maxY)
 }
 
 void Paddle::draw() {
-   al_draw_filled_rectangle(origin.X(), origin.Y(), origin.X()+width, origin.Y()+height, al_map_rgb(237, 41, 57));
+   al_draw_filled_rounded_rectangle(origin.X(), origin.Y(), origin.X()+width, origin.Y()+height, 10, 10, al_map_rgb(237, 41, 237));
 }
 
 double Paddle::bBoxMaxX() {
