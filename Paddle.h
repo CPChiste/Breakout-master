@@ -17,8 +17,8 @@ private:
 public:
 	/// Initialize the paddle, including 
 	/** \param o the origin of the paddle, origin is the top left corner of the paddle rectangle
-		\param w the width of the paddle, in pixels
 		\param h the height of the paddle, in pixels
+		\param p the paddle power up strategy to use
 	*/
 	Paddle(Point o, double h, PaddlePowerUpStrategy p);
 	~Paddle();

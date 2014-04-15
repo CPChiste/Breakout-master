@@ -7,7 +7,6 @@
 #include "BallNoPowerUpStrategy.h"
 
 class BallTestFixture : public CppUnit::TestFixture {
-public:
 	CPPUNIT_TEST_SUITE(BallTestFixture);
 	CPPUNIT_TEST(TestbBoxMinX);
 	CPPUNIT_TEST(TestbBoxMaxX);
@@ -20,11 +19,13 @@ public:
 	CPPUNIT_TEST_SUITE_END();
 private:
 	Ball* b;
-	Point minWall = Point(0, 0);
-	Point maxWall = Point(200, 200);
+	Point minWall;
+	Point maxWall;
 public:
 	void setUp() {
-		b = new Ball(Point(100, 100), 10, new BallNoPowerUpStrategy());
+	   b = new Ball(Point(100, 100), 10, new BallNoPowerUpStrategy());
+	   minWall = Point(0,0);
+	   maxWall = Point(200,200);
 	}
 
 	void tearDown() {
