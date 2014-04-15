@@ -42,7 +42,7 @@ class PaddleTestFixture : public CppUnit::TestFixture {
       CPPUNIT_ASSERT(p->bBoxMaxY() == 570);
    }
 
-   void TestLeftWallCollision() {
+/*   void TestLeftWallCollision() {
       p->updatePosition(10, 0, 0, 800, 600);
       CPPUNIT_ASSERT(p->bBoxMinX() >= 0);
    }
@@ -50,6 +50,6 @@ class PaddleTestFixture : public CppUnit::TestFixture {
    void TestRightWallCollision() {
       p->updatePosition(-10, 0, 0, 800, 600);
       CPPUNIT_ASSERT(p->bBoxMaxX() <= 800);
-      }
+      }*/
 };
 #endif
